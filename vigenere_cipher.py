@@ -48,6 +48,11 @@ def key_enlarge(key, text_length):
     enlarged_key += key[0:r]
     return enlarged_key
 
+# function to shrink the key to make it equal to the text if text length is less than the key length
+def key_shrink(key,text_length):
+    shrinked_key = key[0:text_length]
+    return shrinked_key
+
 # Presenting the user with a menu with options to 1)Encrypt 2)Decrypt 3)Info about Vigenere Cipher and 4)Exit
 print("Please choose any one of the following:")
 print("Enter 1 for Encryption")
