@@ -35,6 +35,18 @@ while row < 26:
     row+=1
 
 '''
+# function to enlarge the key by replicating the key till the text length
+def key_enlarge(key, text_length):
+    enlarged_key = key
+    key_length = len(key)
+    q = text_length//key_length
+    print(q)
+    r = text_length%key_length
+    print(r)
+    for i in range(0,q-1):
+        enlarged_key += key
+    enlarged_key += key[0:r]
+    return enlarged_key
 
 # Presenting the user with a menu with options to 1)Encrypt 2)Decrypt 3)Info about Vigenere Cipher and 4)Exit
 print("Please choose any one of the following:")
