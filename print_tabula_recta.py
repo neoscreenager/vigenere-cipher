@@ -40,3 +40,5 @@ while row < 26:
         col+=1
     print()
     row+=1
+
+print(tabularecta[alpha.index('G'),alpha.index('A')])
