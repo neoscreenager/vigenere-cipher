@@ -2,8 +2,8 @@
 '''
     Encrypt/Decrypt using Vigenere Cipher technique
     Vigenere Cipher is a method of encrypting alphabetic text.
-    It uses a simple form of polyalphabetic substitution. A polyalphabetic cipher is any cipher
-    based on substitution, using multiple substitution alphabets .
+    It uses a simple form of polyalphabetic substitution. A polyalphabetic
+    cipher is any cipher based on substitution, using multiple substitution alphabets .
     The encryption of the original text is done using the Vigenère square aka Vigenère table aka Tabula Recta.
     The table consists of the alphabets written out 26 times in different rows, each alphabet
     shifted cyclically to the left compared to the previous alphabet, corresponding to
@@ -25,15 +25,16 @@ while i < 26:
     endn = 26
     while n <= 25:
         if(startn <= endn):
-            tabularecta[i,n] = alpha[startn-1]
+            tabularecta[i, n] = alpha[startn-1]
         else:
             startn = 1
-            tabularecta[i,n] = alpha[startn-1]
+            tabularecta[i, n] = alpha[startn-1]
         startn += 1
         n += 1
     i += 1
 
-# function to enlarge the key by repeting the key in circular manner until it matches the length of plain text
+# function to enlarge the key by repeting the key in circular manner until it
+# matches the length of plain text
 def key_enlarge(key, text_length):
     enlarged_key = key
     key_length = len(key)
@@ -41,17 +42,19 @@ def key_enlarge(key, text_length):
     print(q)
     r = text_length % key_length
     print(r)
-    for i in range(0,q-1):
+    for i in range(0, q-1):
         enlarged_key += key
     enlarged_key += key[0:r]
     return enlarged_key
 
-# function to shrink the key to make it equal to the text if text length is less than the key length
+# function to shrink the key to make it equal to the text if text length is
+# less than the key length
 def key_shrink(key, text_length):
     shrinked_key = key[0:text_length]
     return shrinked_key
 
-# Presenting the user with a menu with options to 1)Encrypt 2)Decrypt 3)Info about Vigenere Cipher and 4)Exit
+# Presenting the user with a menu with options to 1)Encrypt 2)Decrypt 3)Info
+# about Vigenere Cipher and 4)Exit
 print("Please choose any one of the following:")
 print("Enter 1 for Encryption")
 print("Enter 2 for Decryption")
@@ -60,13 +63,15 @@ print("Enter 4 to exit the program or Ctrl-C")
 choice = int(input(""))
 if choice == 1:
     '''
-        For Encryption, plain text characters will be used as row and key characters will be
-        used as column to identify the character from tabularecta as tabularecta[row, column]
+        For Encryption, plain text characters will be used as row and key
+        characters will be used as column to identify the character from
+        tabularecta as tabularecta[row, column]
         Steps to encrypt:
         #1 : Take plain text and key as input in upper case
         #2 : Enlarge or shrink key to match with the length of plain text
-        #3 : Loop through each character of plain text and key to find out the character
-             from tabularecta and append these characters to get the cipher text
+        #3 : Loop through each character of plain text and key to find out
+             the character from tabularecta and append these characters to
+             get the cipher text
     '''
     # 1
     plain_text = str(input("Enter plain text:")).upper()
@@ -78,7 +83,7 @@ if choice == 1:
     if plain_text_len > key_len:
         key = key_enlarge(key, plain_text_len)
     elif plain_text_len < key_len:
-        key = key_shrink(key, text_length)
+        key = key_shrink(key, plain_text_len)
     # 3
     for x in range(0, plain_text_len):
         cipher_text += tabularecta[alpha.index(plain_text[x]), alpha.index(key[x])]
