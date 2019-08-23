@@ -39,9 +39,7 @@ def key_enlarge(key, text_length):
     enlarged_key = key
     key_length = len(key)
     q = text_length // key_length
-    print(q)
     r = text_length % key_length
-    print(r)
     for i in range(0, q-1):
         enlarged_key += key
     enlarged_key += key[0:r]
@@ -72,6 +70,13 @@ if choice == 1:
         #3 : Loop through each character of plain text and key to find out
              the character from tabularecta and append these characters to
              get the cipher text
+
+        A more easy implementation could be to visualize Vigenère
+        algebraically by converting [A-Z] into numbers [0–25].
+        The the plaintext(P) and key(K) are added modulo 26.
+        Ei = (Pi + Ki) mod 26
+        But we are implementing above steps for encryption, algebraically
+        implementation we will do for decryption
     '''
     # 1
     plain_text = str(input("Enter plain text:")).upper()
@@ -89,7 +94,31 @@ if choice == 1:
         cipher_text += tabularecta[alpha.index(plain_text[x]), alpha.index(key[x])]
     print(f"Encrypted text is : {cipher_text}")
 elif choice == 2:
-    print("Decryption mechanism work in progress.")
+    '''
+        Decryption is performed by going to the row
+        in the table corresponding to the key, finding
+        the position of the ciphertext letter in this row,
+        and then using the column’s label as the plaintext.
+
+        Decryption will be done algebraically by converting [A-Z]
+        into numbers [0–25].
+        Di = (Ei - Ki + 26) mod 26
+    '''
+    # 1
+    cipher_text = str(input("Enter cipher text:")).upper()
+    key = str(input("Enter key:")).upper()
+    plain_text = ""
+    # 2
+    cipher_text_len = len(cipher_text)
+    key_len = len(key)
+    if cipher_text_len > key_len:
+        key = key_enlarge(key, cipher_text_len)
+    elif cipher_text_len < key_len:
+        key = key_shrink(key, cipher_text_len)
+    # 3
+    for x in range(0, len(key)):
+        plain_text += alpha[(alpha.index(cipher_text[x]) - alpha.index(key[x]) + 26) % 26]
+    print(f"Dcrypted text: {plain_text}")
 elif choice == 3:
     print('''
     Vigenere Cipher is a method of encrypting alphabetic text.
@@ -111,4 +140,5 @@ elif choice == 3:
 elif choice == 4:
     print("Bye!")
 else:
-    print("Sorry, this program can offer you only these four choices, please enter only 1, 2, 3 or 4. Thanks.")
+    print("Sorry, this program can offer you only these four choices,\
+          please enter only 1, 2, 3 or 4. Thanks.")
