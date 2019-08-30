@@ -51,15 +51,7 @@ def key_shrink(key, text_length):
     shrinked_key = key[0:text_length]
     return shrinked_key
 
-# Presenting the user with a menu with options to 1)Encrypt 2)Decrypt 3)Info
-# about Vigenere Cipher and 4)Exit
-print("Please choose any one of the following:")
-print("Enter 1 for Encryption")
-print("Enter 2 for Decryption")
-print("Enter 3 to see info about Vigenere Cipher")
-print("Enter 4 to exit the program or Ctrl-C")
-choice = int(input(""))
-if choice == 1:
+def encrypt(plain_text, key):
     '''
         For Encryption, plain text characters will be used as row and key
         characters will be used as column to identify the character from
@@ -79,8 +71,8 @@ if choice == 1:
         implementation we will do for decryption
     '''
     # 1
-    plain_text = str(input("Enter plain text:")).upper()
-    key = str(input("Enter key:")).upper()
+    plain_text = plain_text.upper()
+    key = key.upper()
     cipher_text = ""
     # 2
     plain_text_len = len(plain_text)
@@ -92,8 +84,9 @@ if choice == 1:
     # 3
     for x in range(0, plain_text_len):
         cipher_text += tabularecta[alpha.index(plain_text[x]), alpha.index(key[x])]
-    print(f"Encrypted text is : {cipher_text}")
-elif choice == 2:
+    return cipher_text
+
+def decrypt(cipher_text, key):
     '''
         Decryption is performed by going to the row
         in the table corresponding to the key, finding
@@ -104,41 +97,67 @@ elif choice == 2:
         into numbers [0–25].
         Di = (Ei - Ki + 26) mod 26
     '''
-    # 1
-    cipher_text = str(input("Enter cipher text:")).upper()
-    key = str(input("Enter key:")).upper()
+    cipher_text = cipher_text.upper()
+    key = key.upper()
     plain_text = ""
-    # 2
+
     cipher_text_len = len(cipher_text)
     key_len = len(key)
     if cipher_text_len > key_len:
         key = key_enlarge(key, cipher_text_len)
     elif cipher_text_len < key_len:
         key = key_shrink(key, cipher_text_len)
-    # 3
+
     for x in range(0, len(key)):
         plain_text += alpha[(alpha.index(cipher_text[x]) - alpha.index(key[x]) + 26) % 26]
-    print(f"Dcrypted text: {plain_text}")
-elif choice == 3:
-    print('''
-    Vigenere Cipher is a method of encrypting alphabetic text.
-    It uses a simple form of polyalphabetic substitution. A polyalphabetic cipher is any cipher
-    based on substitution, using multiple substitution alphabets .
-    The encryption of the original text is done using the Vigenère square aka Vigenère table aka Tabula Recta.
-    The table consists of the alphabets written out 26 times in different rows, each alphabet
-    shifted cyclically to the left compared to the previous alphabet, corresponding to
-    the 26 possible Caesar Ciphers.
-    At different points in the encryption process, the cipher uses a different alphabet from one of the rows.
-    The alphabet used at each point depends on a repeating keyword.
-    For generating key, the given keyword is repeated in a circular manner until it matches the length of
-    the plain text. Letter of the plain text is then used as row and letter of key is used as column to pick
-    the cipher text letter from tabula recta.
-    Decryption is performed by going to the row in the table corresponding to the key,
-    finding the position of the ciphertext letter in this row,
-    and then using the column’s label as the plaintext.
-    ''')
-elif choice == 4:
-    print("Bye!")
-else:
-    print("Sorry, this program can offer you only these four choices,\
-          please enter only 1, 2, 3 or 4. Thanks.")
+    return plain_text
+
+def the_main():
+    # Presenting the user with a menu with options to 1)Encrypt 2)Decrypt 3)Info
+    # about Vigenere Cipher and 4)Exit
+    print("Please choose any one of the following:")
+    print("Enter 1 for Encryption")
+    print("Enter 2 for Decryption")
+    print("Enter 3 to see info about Vigenere Cipher")
+    print("Enter 4 to exit the program or Ctrl-C")
+    choice = int(input(""))
+    if choice == 1:
+        plain_text = str(input("Enter plain text:"))
+        key = str(input("Enter key:"))
+        cipher_text = ""
+        cipher_text = encrypt(plain_text, key)
+        print(f"Encrypted text is : {cipher_text}")
+    elif choice == 2:
+        cipher_text = str(input("Enter cipher text:")).upper()
+        key = str(input("Enter key:")).upper()
+        plain_text = ""
+        plain_text = decrypt(cipher_text, key)
+        print(f"Decrypted text: {plain_text}")
+    elif choice == 3:
+        print('''
+            Vigenere Cipher is a method of encrypting alphabetic text.
+            It uses a simple form of polyalphabetic substitution. A polyalphabetic cipher is any cipher
+            based on substitution, using multiple substitution alphabets .
+            The encryption of the original text is done using the Vigenère square aka Vigenère table aka Tabula Recta.
+            The table consists of the alphabets written out 26 times in different rows, each alphabet
+            shifted cyclically to the left compared to the previous alphabet, corresponding to
+            the 26 possible Caesar Ciphers.
+            At different points in the encryption process, the cipher uses a different alphabet from one of the rows.
+            The alphabet used at each point depends on a repeating keyword.
+            For generating key, the given keyword is repeated in a circular manner until it matches the length of
+            the plain text. Letter of the plain text is then used as row and letter of key is used as column to pick
+            the cipher text letter from tabula recta.
+            Decryption is performed by going to the row in the table corresponding to the key,
+            finding the position of the ciphertext letter in this row,
+            and then using the column’s label as the plaintext.
+            ''')
+    elif choice == 4:
+        print("Bye!")
+    else:
+        print("Sorry, this program can offer you only these four choices,\
+            please enter only 1, 2, 3 or 4. Thanks.")
+
+
+
+if __name__ == '__main__':
+    the_main()
