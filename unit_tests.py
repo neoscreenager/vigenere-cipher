@@ -27,4 +27,4 @@ class TestCrypto(unittest.TestCase):
         self.assertEqual(decrypted_text, 'BLOCKCHAIN')
 
 if __name__ == '__main__':
-    unittest.main(exit=False) # to avoid the end of execution traceback
+    unittest.main(exit=False)  # to avoid the end of execution traceback

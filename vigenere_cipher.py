@@ -2,17 +2,21 @@
 '''
     Encrypt/Decrypt using Vigenere Cipher technique
     Vigenere Cipher is a method of encrypting alphabetic text.
-    It uses a simple form of polyalphabetic substitution. A polyalphabetic
-    cipher is any cipher based on substitution, using multiple substitution alphabets .
-    The encryption of the original text is done using the Vigenère square aka Vigenère table aka Tabula Recta.
-    The table consists of the alphabets written out 26 times in different rows, each alphabet
-    shifted cyclically to the left compared to the previous alphabet, corresponding to
-    the 26 possible Caesar Ciphers.
-    At different points in the encryption process, the cipher uses a different alphabet from one of the rows.
+    It uses a simple form of polyalphabetic substitution.
+    A polyalphabetic cipher is any cipher based on substitution,
+    using multiple substitution alphabets.
+    The encryption of the original text is done using the Vigenère square
+    aka Vigenère table aka Tabula Recta.
+    The table consists of the alphabets written out 26 times in different
+    rows, each alphabet shifted cyclically to the left compared to the
+    previous alphabet, corresponding to the 26 possible Caesar Ciphers.
+    At different points in the encryption process, the cipher uses a different
+    alphabet from one of the rows.
     The alphabet used at each point depends on a repeating keyword.
 
 '''
-alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 # Creating the Tebula Recta for encryption/decryption
 
@@ -83,7 +87,8 @@ def encrypt(plain_text, key):
         key = key_shrink(key, plain_text_len)
     # 3
     for x in range(0, plain_text_len):
-        cipher_text += tabularecta[alpha.index(plain_text[x]), alpha.index(key[x])]
+        cipher_text += tabularecta[alpha.index(plain_text[x]),
+                                   alpha.index(key[x])]
     return cipher_text
 
 def decrypt(cipher_text, key):
@@ -109,11 +114,13 @@ def decrypt(cipher_text, key):
         key = key_shrink(key, cipher_text_len)
 
     for x in range(0, len(key)):
-        plain_text += alpha[(alpha.index(cipher_text[x]) - alpha.index(key[x]) + 26) % 26]
+        plain_text += alpha[(alpha.index(cipher_text[x]) -
+                             alpha.index(key[x]) + 26) % 26]
     return plain_text
 
 def the_main():
-    # Presenting the user with a menu with options to 1)Encrypt 2)Decrypt 3)Info
+    # Presenting the user with a menu with options to
+    # 1)Encrypt 2)Decrypt 3)Info
     # about Vigenere Cipher and 4)Exit
     print("Please choose any one of the following:")
     print("Enter 1 for Encryption")
@@ -136,18 +143,25 @@ def the_main():
     elif choice == 3:
         print('''
             Vigenere Cipher is a method of encrypting alphabetic text.
-            It uses a simple form of polyalphabetic substitution. A polyalphabetic cipher is any cipher
+            It uses a simple form of polyalphabetic substitution.
+            A polyalphabetic cipher is any cipher
             based on substitution, using multiple substitution alphabets .
-            The encryption of the original text is done using the Vigenère square aka Vigenère table aka Tabula Recta.
-            The table consists of the alphabets written out 26 times in different rows, each alphabet
-            shifted cyclically to the left compared to the previous alphabet, corresponding to
-            the 26 possible Caesar Ciphers.
-            At different points in the encryption process, the cipher uses a different alphabet from one of the rows.
+            The encryption of the original text is done using the
+            Vigenère square aka Vigenère table aka Tabula Recta.
+            The table consists of the alphabets written out 26 times
+            in different rows, each alphabet
+            shifted cyclically to the left compared to the previous alphabet,
+            corresponding to the 26 possible Caesar Ciphers.
+            At different points in the encryption process, the cipher uses a
+            different alphabet from one of the rows.
             The alphabet used at each point depends on a repeating keyword.
-            For generating key, the given keyword is repeated in a circular manner until it matches the length of
-            the plain text. Letter of the plain text is then used as row and letter of key is used as column to pick
-            the cipher text letter from tabula recta.
-            Decryption is performed by going to the row in the table corresponding to the key,
+            For generating key, the given keyword is repeated in a circular
+            manner until it matches the length of
+            the plain text. Letter of the plain text is then used as row and
+            letter of key is used as column to pick the cipher text letter
+            from tabula recta.
+            Decryption is performed by going to the row in the table
+            corresponding to the key,
             finding the position of the ciphertext letter in this row,
             and then using the column’s label as the plaintext.
             ''')
@@ -156,8 +170,6 @@ def the_main():
     else:
         print("Sorry, this program can offer you only these four choices,\
             please enter only 1, 2, 3 or 4. Thanks.")
-
-
 
 if __name__ == '__main__':
     the_main()
